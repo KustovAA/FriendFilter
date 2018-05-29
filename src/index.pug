@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Friend Filter
+    body
+        .wrapper
+            section.content
+                .content__head.head
+                    .head__title
+                        .head__title-label Выберите друзей
+                    .head__filters
+                        img(src= require('./img/search.png')).head__filters-pic
+                        input.head__filter.head__filters-left(type="text" placeholder = 'Начните вводить имя друга')
+                        input.head__filter.head__filters-right(type="text" placeholder = 'Название')
+                .content__main.main
+                    .main__left
+                        .main__title Ваши друзья
+                        .main__left-container(scroll='yes')
+                    .main__right
+                        .main__title Друзья в списке
+                        .main__right-container
+                .content__foot
+                    button.content__foot-save
+                        p Сохранить

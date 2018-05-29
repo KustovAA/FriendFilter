@@ -1,0 +1,182 @@
+.content {
+    height: 490px;
+    width: 620px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.content__head {
+    width: 100%;
+    height: 95px;
+}
+
+.head__title {
+    width: 100%;
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #ff8663;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+}  
+
+.head__title-label {
+    font-size: 16px;
+    font-family: "Fira Sans";
+    color: rgb(255, 255, 255);
+}
+
+.close {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.head__filters {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 45px;
+    position: relative;
+
+    &-pic {
+        position: absolute;
+        left: 20px;
+    }
+}
+
+.head__filter {
+    border-radius: 13px;
+    outline: none;
+    border: none;
+    width: 285px;
+    padding-left: 15px;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: "Fira Sans";
+    color: rgb(159, 159, 159);
+    font-weight: 300;
+}  
+  
+.head__filters-left {
+    width: 290px;
+    padding-left: 30px;
+}
+
+.content__foot {
+    width: 100%;
+    height: 50px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.content__foot-save {
+    border-radius: 10px;
+    background-color: rgb(255, 134, 99);
+    border: none;
+    outline: none;
+    width: 87px;
+    height: 30px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100;
+
+    p {
+        font-size: 12px;
+        font-family: "Fira Sans";
+        color: rgb(255, 255, 255);
+        font-weight: 300;
+        margin: 0;
+    }
+}
+
+.content__main {
+    width: 100%;
+    flex: 1;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+}  
+
+.main__left, .main__right {
+    width: 50%;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.main__title {
+    font-size: 12px;
+    font-family: "Fira Sans";
+    color: rgb(79, 79, 79);
+}
+
+.main__right-container, .main__left-container {
+    padding-top: 15px;
+    border-top: 1px solid rgb(240, 240, 240);
+    overflow: hidden;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.main__left-container::-webkit-scrollbar, 
+.main__right-container::-webkit-scrollbar {
+    width: 4px;
+}
+ 
+.main__left-container::-webkit-scrollbar-track, 
+.main__right-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(255, 255, 255);
+}
+ 
+.main__left-container::-webkit-scrollbar-thumb, 
+.main__right-container::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  outline: 1px solid rgb(255, 255, 255);
+}
+
+.main__left {
+    border-right: 1px solid rgb(240, 240, 240);
+    padding-right: 8px;
+}
+
+.friend {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.friend-info {
+    display: flex;
+    align-items: center;
+}
+
+.friend-name {
+    padding-left: 10px;
+    font-size: 12px;
+    font-family: "Fira Sans";
+    color: rgb(79, 79, 79);
+}
+
+.add {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 100;
+}
