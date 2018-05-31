@@ -180,3 +180,9 @@
     cursor: pointer;
     z-index: 100;
 }
+
+.draggable {
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}

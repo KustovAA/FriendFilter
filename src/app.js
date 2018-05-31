@@ -38,6 +38,7 @@ window.onload = () => {
         if (target.classList.contains('minus')) {
             const friend = document.createElement('div');
             friend.classList.add('friend');
+            friend.classList.add('draggable');
             friend.innerHTML = new Friend(
                 target.closest('.deleteable').querySelector('.friend-name').innerText
             ).getTemplate();
@@ -48,6 +49,6 @@ window.onload = () => {
 
     const manager = new DragManager();
     document.onmousemove = manager.onMouseMove.bind(manager);
-    rightContainer.onmouseup = manager.onMouseUp.bind(manager);
+    document.onmouseup = manager.onMouseUp.bind(manager);
     leftContainer.onmousedown = manager.onMouseDown.bind(manager);
 }
