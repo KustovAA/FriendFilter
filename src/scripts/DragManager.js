@@ -117,13 +117,15 @@ module.exports = class DragManager {
         document.body.appendChild(avatar);
         avatar.style.zIndex = 9999;
         avatar.style.position = 'absolute';
+        avatar.style.pointerEvents = 'none';
     }
 
     findDroppable(event) {
-        this.dragObject.avatar.hidden = true;
+        // this.dragObject.avatar.hidden = true;
         const elem = document.elementFromPoint(event.clientX, event.clientY);
+        console.log(elem);
 
-        this.dragObject.avatar.hidden = false;
+        // this.dragObject.avatar.hidden = false;
 
         if (elem == null) {
             return null;
