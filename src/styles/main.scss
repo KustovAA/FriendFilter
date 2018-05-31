@@ -159,6 +159,15 @@
     align-items: center;
     padding: 8px;
     border-bottom: 1px solid rgb(240, 240, 240);
+
+    &:hover {
+        background: rgb(240, 240, 240);
+    }
+
+    &.active {
+        background: rgb(240, 240, 240);
+        border-radius: 5px;
+    }
 }
 
 .friend-info {

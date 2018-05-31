@@ -8,7 +8,8 @@ module.exports = class Friend {
         const pic = this.chosen ? 'minus' : 'plus';
         const className = this.chosen ? 'close' : 'add';
         return `
-            <div class="friend-info"><img class="friend-photo" src=${require(`./../img/Avatar.png`)}>
+            <div class="friend-info">
+                <img class="friend-photo" src=${require(`./../img/Avatar.png`)}>
                 <div class="friend-name">${this.name}</div>
             </div>
             <div class="${className}">

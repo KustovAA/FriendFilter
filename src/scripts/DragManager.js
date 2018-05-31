@@ -115,18 +115,15 @@ module.exports = class DragManager {
         const avatar = this.dragObject.avatar;
 
         document.body.appendChild(avatar);
+        avatar.style.pointerEvents = 'none';
         avatar.style.zIndex = 9999;
         avatar.style.position = 'absolute';
-        avatar.style.pointerEvents = 'none';
     }
 
     findDroppable(event) {
-        // this.dragObject.avatar.hidden = true;
+        
         const elem = document.elementFromPoint(event.clientX, event.clientY);
-        console.log(elem);
-
-        // this.dragObject.avatar.hidden = false;
-
+        
         if (elem == null) {
             return null;
         }
@@ -160,5 +157,6 @@ module.exports = class DragManager {
 
     onDragCancel(dragObject) {
         dragObject.avatar.rollback();
+        dragObject.avatar.style.pointerEvents = 'auto';
     }
 };
