@@ -6,17 +6,86 @@ window.onload = () => {
     const rightContainer = document.body.querySelector('.main__right-container');
     const Friend = require('./scripts/Friend');
     const DragManager = require('./scripts/DragManager');
-    const friendList = require('./friends');
     const leftFilter = document.body.querySelector('.head__filters-left');
     const rightFilter = document.body.querySelector('.head__filters-right');
+    const storage = localStorage;
+    const save = document.body.querySelector('.content__foot-save');
 
-    friendList.forEach(el => {
-        const friend = document.createElement('div');
-        friend.classList.add('friend');
-        friend.classList.add('draggable');
-        friend.innerHTML = new Friend(el.name).getTemplate();
-        leftContainer.appendChild(friend);
+    VK.init({
+        apiId: 6496849
     });
+
+    function auth() {
+        return new Promise((resolve, reject) => {
+            VK.Auth.login(data => {
+                if (data.session) {
+                    resolve();
+                } else {
+                    reject(new Error('Не удалось авторизоваться'));
+                }
+            }, 2);
+        });
+    }
+
+    function callAPI(method, params) {
+        params.v = '5.76';
+
+        return new Promise((resolve, reject) => {
+            VK.api(method, params, (data) => {
+                if (data.error) {
+                    reject(data.error);
+                } else {
+                    resolve(data.response);
+                }
+            });
+        })
+    }
+
+    auth()
+        .then(() => {
+            return callAPI('friends.get', { fields: 'photo_100' });
+        })
+        .then(friends => {
+            const friendList = [...friends.items];
+
+            if (storage.data) {
+                const leftList = JSON.parse(storage.data).leftList;
+                const rightList = JSON.parse(storage.data).rightList;
+
+                leftList.forEach(el => {
+                    const friend = document.createElement('div');
+                    friend.classList.add('friend');
+                    friend.classList.add('draggable');
+                    friend.innerHTML = new Friend(el.name, el.photo).getTemplate();
+                    leftContainer.appendChild(friend);
+                });
+
+                rightList.forEach(el => {
+                    const friend = document.createElement('div');
+                    friend.classList.add('friend');
+                    friend.classList.add('deleteable');
+                    friend.innerHTML = new Friend(el.name, el.photo, true).getTemplate();
+                    rightContainer.appendChild(friend);
+                });
+            } else {
+                friendList.forEach(el => {
+                    const friend = document.createElement('div');
+                    friend.classList.add('friend');
+                    friend.classList.add('draggable');
+                    friend.innerHTML = new Friend(`${el.first_name} ${el.last_name}`, el.photo_100).getTemplate();
+                    leftContainer.appendChild(friend);
+                });
+            }
+
+            // friendList.forEach(el => {
+            //     const friend = document.createElement('div');
+            //     friend.classList.add('friend');
+            //     friend.classList.add('draggable');
+            //     friend.innerHTML = new Friend(`${el.first_name} ${el.last_name}`, el.photo_100).getTemplate();
+            //     leftContainer.appendChild(friend);
+            // });
+            
+        });    
 
     leftContainer.addEventListener('click', function (event) {
         const target = event.target;
@@ -27,6 +96,7 @@ window.onload = () => {
             friend.classList.add('deleteable');
             friend.innerHTML = new Friend(
                 target.closest('.draggable').querySelector('.friend-name').innerText,
+                target.closest('.draggable').querySelector('.friend-photo').src, 
                 true
             ).getTemplate();
             rightContainer.appendChild(friend);
@@ -42,12 +112,34 @@ window.onload = () => {
             friend.classList.add('friend');
             friend.classList.add('draggable');
             friend.innerHTML = new Friend(
-                target.closest('.deleteable').querySelector('.friend-name').innerText
+                target.closest('.deleteable').querySelector('.friend-name').innerText, 
+                target.closest('.deleteable').querySelector('.friend-photo').src
             ).getTemplate();
             leftContainer.appendChild(friend);
             this.removeChild(target.parentNode.parentNode);
         }
     });
+
+    save.addEventListener('click', e => {
+        const leftList = [...leftContainer.querySelectorAll('.friend')]
+                                .map(el => {
+                                    return {
+                                        name: el.querySelector('.friend-name').innerText, 
+                                        photo: el.querySelector('.friend-photo').src
+                                    }
+                                });
+        const rightList = [...rightContainer.querySelectorAll('.friend')]
+                                .map(el => {
+                                    return {
+                                        name: el.querySelector('.friend-name').innerText, 
+                                        photo: el.querySelector('.friend-photo').src
+                                    }
+                                });
+        storage.data = JSON.stringify({
+            leftList, 
+            rightList
+        });
+    })
 
     document.addEventListener('click', function (event) {
         const target = event.target.closest('.friend');
@@ -68,7 +160,7 @@ window.onload = () => {
 
         friends.forEach(el => {
             const name = el.querySelector('.friend-name').innerText;
-            
+
             if (!isMatching(name, self.value)) {
                 el.style.display = 'none';
             } else {
@@ -77,11 +169,11 @@ window.onload = () => {
         });
     }
 
-    leftFilter.addEventListener('keyup', function(e) {
+    leftFilter.addEventListener('keyup', function (e) {
         filter(e, leftContainer, this);
     });
 
-    rightFilter.addEventListener('keyup', function(e) {
+    rightFilter.addEventListener('keyup', function (e) {
         filter(e, rightContainer, this);
     });
 

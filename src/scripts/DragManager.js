@@ -82,10 +82,17 @@ module.exports = class DragManager {
             left: avatar.left || '',
             top: avatar.top || '',
             zIndex: avatar.zIndex || '',
-            innerHTML: new Friend(avatar.querySelector('.friend-name').innerText).getTemplate()
+            innerHTML: new Friend(
+                avatar.querySelector('.friend-name').innerText, 
+                avatar.querySelector('.friend-photo').src
+            ).getTemplate()
         };
 
-        avatar.innerHTML = new Friend(avatar.querySelector('.friend-name').innerText, true).getTemplate();
+        avatar.innerHTML = new Friend(
+            avatar.querySelector('.friend-name').innerText, 
+            avatar.querySelector('.friend-photo').src, 
+            true
+        ).getTemplate();
 
         avatar.getOldStyle = function () {
             return {
